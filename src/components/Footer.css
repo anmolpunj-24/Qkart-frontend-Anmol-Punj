@@ -1,5 +1,5 @@
 .footer {
-    height: 25vh;
+    height: 22vh;
     background-color: #042C22;
     display: flex;
     flex-direction: column;
@@ -17,6 +17,6 @@
 
 @media screen and (min-width: 768px) {
     .footer-text {
-        width: 40%;
+        width: 35%;
     }
 }

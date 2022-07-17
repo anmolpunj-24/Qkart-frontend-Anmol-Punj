@@ -10,14 +10,17 @@ import "./Register.css";
 
 const Register = () => {
   const { enqueueSnackbar } = useSnackbar();
-
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // TODO: CRIO_TASK_MODULE_REGISTER - Implement the register function
   /**
    * Definition for register handler
    * - Function to be called when the user clicks on the register button or submits the register form
    *
-   * @param {{ username: string, password: string, confirmPassword: string }} formData
+   * @param {{ username: string,  : string, confirmPassword: string }} formData
    *  Object with values of username, password and confirm password user entered to register
    *
    * API endpoint - "POST /auth/register"
@@ -36,6 +39,30 @@ const Register = () => {
    * }
    */
   const register = async (formData) => {
+    const isValid = validateInput(formData);
+      if (isValid) {
+        setIsLoading(true)
+        const payload = {
+          username: formData.username,
+          password: formData.password
+        }
+        try {
+          const response = await axios.post(`${config.endpoint}/auth/register`, payload)
+          if (response.status === 201) {
+        // Request made and server responded
+            enqueueSnackbar("Registered successfully", { variant: "success" })
+          }
+        }catch (error) {
+          if (error.response.status === 400) {
+        // The request was made but no response was received error 400...
+          enqueueSnackbar(error.response.data.message, { variant: "error" })
+        }else {
+        // Something happened in setting up the request that triggered an Error
+            enqueueSnackbar("Something went wrong. Check that the backend is running, reachable and returns valid JSON.", { variant: "error" });
+        }
+      }
+    }
+    setIsLoading(false);
   };
 
   // TODO: CRIO_TASK_MODULE_REGISTER - Implement user input validation logic
@@ -57,6 +84,29 @@ const Register = () => {
    * -    Check that confirmPassword field has the same value as password field - Passwords do not match
    */
   const validateInput = (data) => {
+    const { username, password, confirmPassword } = data;
+    
+    if (username === "") {
+      enqueueSnackbar("Username is a required field");
+      return (false)
+    }
+    if (username.length < 6) {
+      enqueueSnackbar("Username must be at least 6 characters");
+      return (false)
+    }
+    if (password === "") {
+      enqueueSnackbar("Password is a required field");
+      return (false)
+    }
+    if (password.length < 6) {
+      enqueueSnackbar("Password must be at least 6 characters");
+      return (false)
+    }
+    if (confirmPassword !==  password) {
+      enqueueSnackbar("Passwords do not match ");
+      return (false)
+    }
+    return(true)
   };
 
   return (
@@ -78,28 +128,40 @@ const Register = () => {
             name="username"
             placeholder="Enter Username"
             fullWidth
+            onChange={(e)=>setUsername(e.target.value)}
           />
           <TextField
             id="password"
             variant="outlined"
             label="Password"
+            title="Password"
             name="password"
             type="password"
             helperText="Password must be atleast 6 characters length"
             fullWidth
             placeholder="Enter a password with minimum 6 characters"
+            onChange={(e)=>setPassword(e.target.value)}
           />
           <TextField
             id="confirmPassword"
             variant="outlined"
+            title="Confirm Password"
             label="Confirm Password"
             name="confirmPassword"
             type="password"
             fullWidth
+            onChange={(e)=>setConfirmPassword(e.target.value)}
           />
-           <Button className="button" variant="contained">
+          <div>
+            {(isLoading === true) ? <Box sx={{ display: "flex", justifyContent: "center"}}>
+              <CircularProgress color="success" />
+            </Box>
+              :
+              <Button className="button" variant="contained"
+                onClick={() => register({ username: username, password: password, confirmPassword: confirmPassword })}>
             Register Now
-           </Button>
+            </Button>}
+          </div>
           <p className="secondary-action">
             Already have an account?{" "}
              <a className="link" href="#">
