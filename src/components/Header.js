@@ -41,7 +41,7 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
         ) : username ? (
              <Stack direction="row" spacing={2} alignItems="center" key="logout">
               <Avatar src="avatar.png" alt="crio.do"/>
-              <p style={{ marginTop: "0.1rem" }}>{username}</p>
+              <p style={{ marginTop: "0.02rem" }}>{username}</p>
               <Button
                 variant="text"
                 onClick={logOut}>

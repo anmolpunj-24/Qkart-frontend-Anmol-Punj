@@ -28,7 +28,7 @@ function App() {
                 <Route exact path="/">
                   <Products />
                 </Route>
-              </Switch>
+            </Switch>
           </BrowserRouter>
           {/* TODO: CRIO_TASK_MODULE_LOGIN - To add configure routes and their mapping */}
           {/* <Register /> */}

@@ -8,7 +8,7 @@ import { useHistory, Link } from "react-router-dom";
 import { config } from "../App";
 import Footer from "./Footer";
 import Header from "./Header"; 
-import "./Login.css"; 
+import "./Login.css";  
 
 const Login = () => {
   const { enqueueSnackbar } = useSnackbar();
