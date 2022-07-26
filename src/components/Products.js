@@ -240,7 +240,7 @@ const Products = () => {
       {loading ? (
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
           <CircularProgress color="success"/>
-          <Typography> <h3><b>Loading Products...</b></h3></Typography>
+          <Typography variant="h3"> <b>Loading Products...</b></Typography>
         </Box>
       ) : (
           <Grid container spacing={2} rowSpacing={2} my={1}>
