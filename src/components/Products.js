@@ -200,7 +200,7 @@ const Products = () => {
           InputProps={{
           className: "search",
           endAdornment: (
-            <InputAdornment position="center">
+            <InputAdornment position="end">
               <Search color="primary" />
             </InputAdornment>
           ),
