@@ -1,24 +1,17 @@
 import { Search, SentimentDissatisfied } from "@mui/icons-material";
 import {
   CircularProgress,
-  Grid,
+  Grid, 
   InputAdornment,
   TextField,
 } from "@mui/material";
-import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
 import { Box } from "@mui/system";
-import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios"; 
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { config } from "../App"; 
 import Footer from "./Footer"; 
 import Header from "./Header";
-import Card from "@mui/material/Card"; 
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import "./Products.css"; 
 import ProductCard from "./ProductCard"
@@ -34,22 +27,10 @@ import ProductCard from "./ProductCard"
  * @property {string} image - Contains URL for the product image
  * @property {string} _id - Unique ID for the product
  */
-const useStyles = makeStyles({
-  card: {
-    maxidth: 100,
-    boxShadow: "0 5px 8px 0 rgba(0, 0, 0, 0.3)",
-    backgroundColor: "#fafafa",
-  },
-  media: {
-    height: 160,
-  },
-});
 
 const Products = () => {
-  const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
-  const [loading, setLoading] = useState();
-  // const [value, setValue] = useState(2);
+  const [loading, setLoading] = useState(false);
 
   const [products, setProducts] = useState([]);
   const [debounceTimeout, setDebounceTimeout] = useState(0);
@@ -122,9 +103,9 @@ const Products = () => {
     } catch (error) {
       // setLoading(false);
       if (error.response.status === 500 && error.response) {
-        enqueueSnackbar(error.response.data.message, { variant: "error", autoHideDuration: 2000 })
+        enqueueSnackbar(error.response.data.message, { variant: "error", autoHideDuration: 2000 });
       } else {
-        enqueueSnackbar("Something went wrong. Check the backend console for more details", { variant: "error", autoHideDuration: 2000 })
+        enqueueSnackbar("Something went wrong. Check the backend console for more details", { variant: "error", autoHideDuration: 2000 });
       }
     }
   };
@@ -187,7 +168,7 @@ const Products = () => {
     setDebounceTimeout(timeOut);
   };
 
-   useEffect(() => performAPICall(), []);
+  useEffect(() => { performAPICall(); }, []);
 
   return (
     <div>
@@ -238,26 +219,29 @@ const Products = () => {
          </Grid>
       </Grid>
       {loading ? (
-        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
+        <div className="loading">
           <CircularProgress color="success"/>
-          <Typography variant="h3"> <b>Loading Products...</b></Typography>
-        </Box>
+          <Typography variant="h4"> <b>Loading Products...</b></Typography>
+        </div>
       ) : (
           <Grid container spacing={2} rowSpacing={2} my={1}>
-            {products.map((product) => {
-              const{_id, name, category, rating, cost, image} = product;
-            return(
-            <Grid item xs={6} md={3} key={_id}>
-                <ProductCard product={product}/>
-              </Grid>
-            );
-          })}
+            {products.length ? (
+              products.map((product) => {
+                const { _id, name, category, rating, cost, image } = product;
+                return (
+                  <Grid item xs={6} md={3} key={_id}>
+                    <ProductCard product={product} />
+                  </Grid>
+                );
+              })
+            ) : (
+              <div className="loading">
+                <SentimentDissatisfied color="action" fontSize="large" />
+                <Typography variant="h5" style={{ color: "#636363" }}><b>No Products found</b></Typography>
+              </div>
+            )} 
           </Grid>
       )}
-        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
-          <SentimentDissatisfied color="action" fontSize="large"/>
-          <h3 style={{ color: "#636363" }}><b>No Products found</b></h3>
-        </Box>
       <Footer />
     </div>
   );
