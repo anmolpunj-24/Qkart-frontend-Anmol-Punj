@@ -54,7 +54,6 @@ const Register = () => {
       setIsLoading(false);
         enqueueSnackbar("Registered successfully", { variant: "success", autoHideDuration: 2000 })
         history.push("/login", { from: "Register" });
-
     } catch (error) {
       setIsLoading(true)
       if (error.response.status === 400 && error.response) {

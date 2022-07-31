@@ -1,37 +1,33 @@
-import {Button, Card, CardActions, CardContent, CardMedia, Rating, Typography, } from "@mui/material";
+import { AddShoppingCartOutlined } from "@mui/icons-material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Rating,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import "./ProductCard.css";
-import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
-
-const ProductCard = ({ product, handleAddToCart }) => {
+const ProductCard = ({ product, handleAddToCart , productsInCart, productsInList}) => {
   return (
-    <Card className="card">  
-      <CardMedia
-        className={product.category}
-        component="img" 
-        image={product.image}
-        alt="image"
-      />
+    <Card className="card">
+      <CardMedia component="img" alt={product.name} className={product.category} image={product.image} />
       <CardContent>
-        <Typography gutterBottom  >
-          {product.name}
+        <Typography gutterBottom variant="subtitle1" component="div">
+          <b>{product.name}</b>
         </Typography>
-        <Typography className="card-actions" style={{ fontWeight: "bold" }} variant="subtitle1" gutterBottom>${product.cost}</Typography>
-        <Rating
-          name="simple-controlled"
-          defaultValue={product.rating}
-          precision = {0.5}
-          readOnly
-        />
+        <Typography variant="subtitle2" gutterBottom component="div">
+            ${product.cost}
+        </Typography>
+        <Rating name="half-rating-read" value={product.rating} precision={0.5} readOnly />
       </CardContent>
       <CardActions>
-        <Button fullWidth className="card-button" variant="contained" startIcon={<AddShoppingCartRoundedIcon />}
-          onClick={handleAddToCart}>
-          ADD TO CART
-        </Button>
+        <Button variant="contained" fullWidth={true} className="card-button" startIcon={<AddShoppingCartOutlined />} onClick=
+          {() => handleAddToCart(localStorage.getItem('token'), productsInCart, productsInList, product["_id"], 1, { preventDuplicate: true })}>Add To Cart</Button>
       </CardActions>
     </Card>
-  ); 
-};
-export default ProductCard;
+  )}
 
+export default ProductCard;

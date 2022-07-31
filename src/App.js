@@ -7,12 +7,12 @@ import Login from "./components/Login";
 import Products from "./components/Products"; 
 import { ThemeProvider } from "@mui/system";
 import theme from "./theme";
-
+import Checkout from "./components/Checkout";
 export const config = {
   endpoint: `http://${ipConfig.workspaceIp}:8082/api/v1`,
 };
  
-function App() { 
+function App() {  
   return (
     <React.StrictMode>
       <ThemeProvider theme={theme}>
@@ -27,6 +27,9 @@ function App() {
                 </Route>
                 <Route exact path="/">
                   <Products />
+                </Route>
+                <Route exact path="/checkout">
+                  <Checkout />
                 </Route>
             </Switch>
           </BrowserRouter>
