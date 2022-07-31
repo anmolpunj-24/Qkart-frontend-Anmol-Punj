@@ -13,7 +13,7 @@ import React, { useEffect, useState } from "react";
 import { config } from "../App";
 import Footer from "./Footer";
 import Header from "./Header";
-import "./Products.css";
+import "./Products.css"; 
 import ProductCard from "./ProductCard";
 import Cart, {generateCartItemsFrom} from "./Cart";
 
@@ -312,6 +312,12 @@ const Products = () => {
     qty,
     options = { preventDuplicate: false }
   ) => {
+    // console.log("token", token);
+    // console.log("items", items);
+    // console.log("products", products);
+    // console.log("productId", productId);
+    // console.log("qty", qty);
+    // console.log("options", options);
     if (!localStorage.getItem('token')) {
       console.log("Hello1")
       enqueueSnackbar("Login to add an item to the Cart", { variant: 'warning' , autoHideDuration: 2000 })
@@ -392,7 +398,7 @@ const Products = () => {
         name="search"
       />
       {localStorage.getItem("username") ? <Grid container >
-        <Grid item md = {9} xs = {12} >
+        <Grid item md = {9} xs = {12}>
           <Grid item className="product-grid">
            <Box className="hero">
              <p className="hero-heading">
@@ -402,13 +408,13 @@ const Products = () => {
           </Box>
         </Grid>
           {loader ? <Grid container className="loading"
-              sx={{
+            sx={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 flexDirection: "column",
               }}><CircularProgress color="success" />
-            <Typography variant="h5"> <b>Loading Products...</b></Typography></Grid> : allProductsList ? <Grid container sx={{ mt: 0.001 }} spacing={2}> {allProductsList.map((element) => <Grid item className="product-grid" key={element._id} xs={6} md={3}><ProductCard product={element} handleAddToCart={addToCart} productsInCart = {cartUpdate} productsInList = {allProductsList}></ProductCard></Grid>)} </Grid>  : <div className="loading"> <SentimentDissatisfied color="action" fontSize="large" />
+            <Typography variant="h5"> <b>Loading Products...</b></Typography></Grid> : allProductsList ? <Grid container sx={{ mt: 0.001 }} spacing={2}> {allProductsList.map((element) => <Grid item className="product-grid" key={element._id} xs={6} md={3} style={{ backgroundColor: '#E9F5E1' }}><ProductCard product={element} handleAddToCart={addToCart} productsInCart = {cartUpdate} productsInList = {allProductsList}></ProductCard></Grid>)} </Grid>  : <div className="loading"> <SentimentDissatisfied color="action" fontSize="large" />
                 <Typography variant="h5" style={{ color: "#636363" }}><b>No Products found</b></Typography></div>}
         </Grid>
         <Grid item spacing={3} md = {3} xs = {12} style={{ backgroundColor: '#E9F5E1' }}>
@@ -424,7 +430,7 @@ const Products = () => {
           </Box>
         </Grid>
         {loader ? <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center"><CircularProgress color="success" />
-            <Typography variant="h5"> <b>Loading Products...</b></Typography></Grid> : allProductsList ? allProductsList.map((element) => <Grid item className="product-grid" key = {element._id} xs={6} md={3} style={{ backgroundColor: '#E9F5E1' }}><ProductCard product={element} handleAddToCart = {addToCart} productsInCart = {cartUpdate} productsInList = {allProductsList}></ProductCard></Grid>) : <div className="loading"><SentimentDissatisfied color="action" fontSize="large" />
+            <Typography variant="h5"> <b>Loading Products...</b></Typography></Grid> : allProductsList ? allProductsList.map((element) => <Grid item className="product-grid" key = {element._id} xs={6} md={3}><ProductCard product={element} handleAddToCart = {addToCart} productsInCart = {cartUpdate} productsInList = {allProductsList}></ProductCard></Grid>) : <div className="loading"><SentimentDissatisfied color="action" fontSize="large" />
                 <Typography variant="h5" style={{ color: "#636363" }}><b>No Products found</b></Typography></div>}
         </Grid>}
       <Footer />

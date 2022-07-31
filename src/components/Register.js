@@ -12,7 +12,7 @@ import "./Register.css";
 const Register = () => {
   const { enqueueSnackbar } = useSnackbar();
   const person = { 
-    username: "",
+    username: "", 
     password:"",
     confirmPassword:""
   }

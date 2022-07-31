@@ -17,7 +17,7 @@ ReactDOM.render(
           horizontal: "center",
         }}
         preventDuplicate>
-        <App />
+        <App /> 
       </SnackbarProvider>
     </BrowserRouter>
   </React.StrictMode>,

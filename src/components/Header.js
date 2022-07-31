@@ -18,7 +18,7 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
     window.location.reload();
     enqueueSnackbar("Logged Out Successfully", { variant:"success" })
     history.push("/", { from: "Header" })
-  }
+  } 
 
     return (
       <Box className="header">
@@ -133,4 +133,3 @@ export default Header;
 // };
 
 // export default Header;
-

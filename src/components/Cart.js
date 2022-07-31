@@ -4,9 +4,9 @@ import {
   ShoppingCart,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
-import { Button, IconButton, Stack } from "@mui/material";
+import { Button, IconButton, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React from "react"; 
 import { useHistory } from "react-router-dom";
 import "./Cart.css";
 
@@ -242,20 +242,50 @@ const Cart = ({
             >
               ${getTotalCartValue(items)}
             </Box>
-            </Box>
-        <Box display="flex" justifyContent="flex-end" className="cart-footer">
-          {!isReadOnly && <Button
-            color="primary"
-            variant="contained"
-            startIcon={<ShoppingCart />}
-            className="checkout-btn"
-            onClick={handleClick}
-          >
-            Checkout
-          </Button>}
-            </Box>
           </Box>
-          </>
-          );
-        };
+        {!isReadOnly && (
+          <Box display="flex" justifyContent="flex-end" className="cart-footer">
+            <Button
+              color="primary"
+              variant="contained"
+              startIcon={<ShoppingCart />}
+              className="checkout-btn"
+              onClick={handleClick}
+            >
+              Checkout
+            </Button>
+          </Box>
+        )}
+      </Box>
+      {isReadOnly && (
+        <Box padding="1rem" className="cart">
+          <Typography variant="h5" fontWeight="700" mb={2}>
+            Order Details
+          </Typography>
+          <Box display="flex" justifyContent="space-between" mb={1}>
+            <Typography> Products </Typography>
+            <Typography>{getTotalItems(items)}</Typography>
+          </Box>
+          <Box display="flex" justifyContent="space-between" mb={1}>
+            <Typography>Subtotal</Typography>
+            <Typography>${getTotalCartValue(items)} </Typography>
+          </Box>
+          <Box display="flex" justifyContent="space-between" mb={2}>
+            <Typography>Shipping Charges</Typography>
+            <Typography>$0</Typography>
+          </Box>
+          <Box display="flex" justifyContent="space-between" mb={2}>
+            <Typography variant="h6" fontWeight="700">
+              Total
+            </Typography>
+            <Typography variant="h6" fontWeight="700">
+              ${getTotalCartValue(items) + 0}
+            </Typography>
+          </Box>
+        </Box>
+      )}
+    </>
+  );
+};
+
 export default Cart;

@@ -12,7 +12,7 @@ const Footer = () => {
         QKart is your one stop solution to the buy the latest trending items
         with India's Fastest Delivery to your doorstep
       </p>
-    </Box>
+    </Box> 
   );
 };
 

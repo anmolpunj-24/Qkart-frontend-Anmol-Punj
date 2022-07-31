@@ -8,6 +8,7 @@ import Products from "./components/Products";
 import { ThemeProvider } from "@mui/system";
 import theme from "./theme";
 import Checkout from "./components/Checkout";
+import Thanks from "./components/Thanks";
 export const config = {
   endpoint: `http://${ipConfig.workspaceIp}:8082/api/v1`,
 };
@@ -31,6 +32,9 @@ function App() {
                 <Route exact path="/checkout">
                   <Checkout />
                 </Route>
+                <Route exact path="/thanks">
+                  <Thanks />
+                </Route>
             </Switch>
           </BrowserRouter>
           {/* TODO: CRIO_TASK_MODULE_LOGIN - To add configure routes and their mapping */}
@@ -40,6 +44,6 @@ function App() {
       </ThemeProvider>
     </React.StrictMode>
   );
-}
+} 
 
 export default App;
