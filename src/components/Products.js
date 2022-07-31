@@ -312,12 +312,6 @@ const Products = () => {
     qty,
     options = { preventDuplicate: false }
   ) => {
-    // console.log("token", token);
-    // console.log("items", items);
-    // console.log("products", products);
-    // console.log("productId", productId);
-    // console.log("qty", qty);
-    // console.log("options", options);
     if (!localStorage.getItem('token')) {
       console.log("Hello1")
       enqueueSnackbar("Login to add an item to the Cart", { variant: 'warning' , autoHideDuration: 2000 })
